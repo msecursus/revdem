@@ -1,0 +1,36 @@
+<%= bootstrap_flash %>
+<%= form_for([@restaurant, @review]) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger alert-dismissible">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4><%= pluralize(@review.errors.count, "probleempje") %> Verhinderen De Opslag :</h4>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        
+      <% end %>
+      
+      </ul>
+    </div>
+  <% end %>
+<div id="star-rating"></div>
+  <div class="form-group">
+  
+    <%= f.label :rating %><br>
+   <p><%= f.number_field :rating, class:"form-control" %> </p> 
+  </div>
+  <div class="form-group">
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment, class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class:"btn btn-primary" %>
+  </div>
+<% end %>
+<script>
+  $('#star-rating').raty({
+    path: 'C:\Users\a.hardij\Sites\revdem\app\assets\images\stars',
+    scoreName: 'review[rating]'
+  });
+</script>

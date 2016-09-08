@@ -1,0 +1,119 @@
+<div class="row"  style="margin:0 1px 20px 0;">
+	<div class="col-md-3 restaurants">
+		<%= image_tag @restaurant.image_url %>
+		<h2>
+		  <strong>
+		  <%= @restaurant.name %>
+		  	
+		  </strong>
+		</h2>
+		<div class="star-rating" data-score= "<%= @avg_rating %>" ></div>
+		  
+					
+				
+		<p>
+		  <strong>Address:</strong>
+		  <%= @restaurant.address %>
+		</p>
+
+		<p>
+		  <strong>Phone:</strong>
+		  <%= @restaurant.phone %>
+		</p>
+
+		<p>
+		  <strong>Website:</strong>
+		  <%= link_to @restaurant.website, @restaurant.website %>
+		</p>
+
+		<p> <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+		<%= link_to 'Back', restaurants_path %></p>
+
+		<% if @reviews.blank? %>
+			<p>Find Your PLace</p>
+		<% else %>
+			<p>Find Your PLace</p>
+			<p><%= link_to 'Write A Review', new_restaurant_review_path(@restaurant), class: "btn btn-primary writereviewbtn" %></p> 
+		<% end %>
+
+		<iframe  width="300px" height="400px" src="//www.google.com/maps/embed/v1/place?q=<%= @restaurant.address.parameterize %>
+
+      &zoom=1
+      &key=AIzaSyBJg0HiO2KtvExTuiWB6rKhmUUsHXFk6dY" >
+
+      
+     
+  </iframe>
+	</div>
+	<div class="col-md-9 reviews" style="background:#cac2f9; min-height:855px;">
+
+		<% if @reviews.blank? %>
+			<div>
+				<h3>No Reviews Yet.Tell us what to expect .<%= link_to 'Write A Review', new_restaurant_review_path(@restaurant), class: "btn btn-primary pull-right" %></h3>
+
+			</div>
+			
+			<hr />
+			
+				<div style="width:100%; text-align:center; background:#fff;">
+			
+				  <p style="padding-top:10px;">Good restaurants can make your life complete</p>
+			
+				  <%= image_tag("P1000122.JPG", alt: "food", width:"90%") %>
+			<hr />
+				  <p>Eating is fun when it's not a gamble</p>
+			<hr />
+				</div>
+			
+		<% else %>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="col-md-3">
+							<h4 style="color:#fff;">author</h4> 
+						</th>
+						<th class="col-md-9">
+							<h4  style="color:#fff;">rating 1 to 5 .</h4> 
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @reviews.each do |review| %>
+						<tr>
+							<td>
+								<h4><%= "#{review.user.first_name.capitalize} #{review.user.last_name.capitalize[0]}." %></h4>
+								<p><%= review.created_at.strftime("%-m/%-d/%y") %></p> 
+							</td>
+							<td>
+								<div class="star-rating" data-score= <%= review.rating %> >
+					
+								</div>
+								<div style="font-size:16px; letter-spacing:1.4px;">
+									<p style="font-size:25px; color:#837ca8; font-weight:bold;"><%= review.rating %></p>
+									<p style="background:#e7e6f7; padding:10px;"><%= h(review.comment).gsub(/\n/, '<br/>').html_safe %></p>
+								</div>
+								
+								<% if user_signed_in? %>
+									<% if (review.user == current_user) ; ! (current_user.admin?) %>
+									<%= link_to "Edit Review", edit_restaurant_review_path(@restaurant, review) %> | <%= link_to "Delete Review", restaurant_review_path(@restaurant, review), method: :delete %>
+									<% end %>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+
+			</table>
+				
+		
+		<% end %>
+		<hr style="color:#fff;"/>
+		<div style="width:100%; margin-bottom:10px; text-align:right; color:#fff;">
+			<%= will_paginate @reviews %>
+		</div>
+	</div>
+
+</div>
+
+

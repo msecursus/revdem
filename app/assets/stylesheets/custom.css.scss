@@ -1,0 +1,32 @@
+.navbar-default{
+	.container-fluid{
+		
+		.navbar-nav > li > a{
+			color:#4ca598;
+			font-weight:bold;
+		}
+		.navbar-brand{
+			color:#2a2a2c;
+			font-size:30px;
+			font-weight:bold;
+			font-family:'Hobo Std';
+			text-shadow:2px 0 0 #4ca598, -2px 0 0 #4ca598;
+		}
+	}
+}
+
+.jumbotron{
+  background:#4ca598;
+  border:5px solid #e5d0d0;
+  h2 {
+  	color:#e5d0d0;
+  	font-weight:bold;
+  }
+}
+.container-fluid{
+	padding:10px 120px;
+}
+.writereviewbtn{
+	color:yellow;
+	width:100%;
+}
